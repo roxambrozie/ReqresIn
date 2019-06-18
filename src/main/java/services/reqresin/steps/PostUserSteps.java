@@ -1,4 +1,4 @@
-package services.reqresin.steps;
+package services.reqresin.steps.ReqresSteps;
 
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
@@ -27,8 +27,6 @@ public class PostUserSteps {
                 .body(user)
                 .post(POST_CREATE_USER_URL)
                 .then()
-//                .extract()
-//                .path("id")
                 ;
     }
 

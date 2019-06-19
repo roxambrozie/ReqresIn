@@ -1,4 +1,4 @@
-package services.reqresin.pojo.node;
+package services.petshop.pojo.node;
 
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;

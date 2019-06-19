@@ -8,7 +8,6 @@ import net.thucydides.core.annotations.WithTags;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import services.reqresin.steps.PatchUserSteps;
-import services.reqresin.steps.PutUserSteps;
 
 @RunWith(SerenityRunner.class)
 @WithTags({

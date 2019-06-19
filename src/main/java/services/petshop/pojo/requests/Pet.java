@@ -20,9 +20,9 @@ import services.petshop.pojo.node.Tag;
 
 @JsonInclude(Include.NON_NULL)
 @JsonPropertyOrder({"id", "category", "name", "photoUrls", "tags", "status"})
-public class PostPetRequest {
+public class Pet {
     @JsonProperty("id")
-    private Integer id;
+    private int id;
     @JsonProperty("category")
     private Category category;
     @JsonProperty("name")
@@ -36,16 +36,16 @@ public class PostPetRequest {
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap();
 
-    public PostPetRequest() {
+    public Pet() {
     }
 
     @JsonProperty("id")
-    public Integer getId() {
+    public int getId() {
         return this.id;
     }
 
     @JsonProperty("id")
-    public void setId(Integer id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -120,10 +120,10 @@ public class PostPetRequest {
     public boolean equals(Object other) {
         if (other == this) {
             return true;
-        } else if (!(other instanceof PostPetRequest)) {
+        } else if (!(other instanceof Pet)) {
             return false;
         } else {
-            PostPetRequest rhs = (PostPetRequest)other;
+            Pet rhs = (Pet)other;
             return (new EqualsBuilder()).append(this.id, rhs.id).append(this.category, rhs.category).append(this.name, rhs.name).append(this.photoUrls, rhs.photoUrls).append(this.tags, rhs.tags).append(this.status, rhs.status).append(this.additionalProperties, rhs.additionalProperties).isEquals();
         }
     }

@@ -7,24 +7,25 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import services.petshop.pojo.requests.Pet;
-import services.petshop.steps.GetPetSteps;
+import services.petshop.steps.CommonMethodsPetSteps;
 import services.petshop.steps.PostPetSteps;
 import services.petshop.steps.PutPetSteps;
-import services.reqresin.steps.GetUserSteps;
-import services.reqresin.steps.PutUserSteps;
 
 
 @RunWith(SerenityRunner.class)
 @WithTags({
-        @WithTag(type = "type", name = "PostPet")
+        @WithTag(type = "type", name = "FlowPet")
 })
-public class PostPetTest {
-    Pet mypet;
+public class FlowPetTest {
+
+    private Pet mypet = new Pet();
+    private Pet updatedPet = new Pet();
+
     @Steps
     PostPetSteps postPetSteps;
 
     @Steps
-    GetPetSteps getPetSteps;
+    CommonMethodsPetSteps commonMethodsPetSteps;
 
     @Steps
     PutPetSteps putPetSteps;
@@ -34,15 +35,21 @@ public class PostPetTest {
         mypet.setId(133);
         mypet.setName("Animalut");
         mypet.setStatus("available");
+        updatedPet.setId(mypet.getId());
+        updatedPet.setName(mypet.getName());
+        updatedPet.setStatus("sold");
 
     }
 
     @Title("This is a test that will create a new pet, will perform a get method to retrieve it and a put method to update it")
     @Test
-    public void createPet() {
+    public void createGetUpdatePet() {
+
         Response createPetR = postPetSteps.createNewPet(mypet);
-        Pet createdPet = createPetR.as(Pet.class);
-        getPetSteps.getPetWithId(createdPet.getId());
+        commonMethodsPetSteps.statusCodeSuccess(createPetR);
+        commonMethodsPetSteps.getTheIdOfTheCreatedPet(mypet);
+        commonMethodsPetSteps.assertUserRetrievedIsUserCreated(mypet);
+        putPetSteps.updatePet(updatedPet);
 
     }
 

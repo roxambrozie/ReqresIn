@@ -1,4 +1,4 @@
-package services.reqresin.steps.ReqresSteps;
+package services.reqresin.steps;
 
 import io.restassured.response.Response;
 import net.serenitybdd.rest.SerenityRest;

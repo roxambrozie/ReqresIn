@@ -10,16 +10,17 @@ import utils.reusable.specifications.ReusableSpecifications;
 public class PutPetSteps {
 
     private PetShopService petShopService = new PetShopService();
-    private String PUT_PET_URL = petShopService.getBaseUri() + PetShopService.POST_PET;
+    private String PUT_PET_URL = petShopService.getBaseUri() + PetShopService.PET_URI;
 
-    Pet pet = new Pet();
-
-    @Step("Updating the recently created pet")
+    @Step("When I update the recently created pet")
     public Response updatePet(Pet pet){
-        return SerenityRest.rest().given()
+        Response response = SerenityRest.rest().given().log().all()
                 .when()
                 .spec(ReusableSpecifications.getGenericRequestSpec())
                 .body(pet)
                 .put(PUT_PET_URL);
+        response.then().log().all();
+
+        return response;
     }
 }

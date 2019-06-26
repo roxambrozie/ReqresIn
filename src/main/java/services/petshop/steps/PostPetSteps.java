@@ -10,17 +10,18 @@ import utils.reusable.specifications.ReusableSpecifications;
 public class PostPetSteps {
 
     private PetShopService petShopService = new PetShopService();
-    private String POST_CREATE_PET_URL = petShopService.getBaseUri() + PetShopService.POST_PET;
-
-    Pet pet = new Pet();
+    private String POST_CREATE_PET_URL = petShopService.getBaseUri() + PetShopService.PET_URI;
 
     @Step("Creating a new pet")
     public Response createNewPet(Pet pet) {
-        return SerenityRest.rest().given()
+        Response response = SerenityRest.rest().given().log().all()
                 .when()
                 .spec(ReusableSpecifications.getGenericRequestSpec())
                 .body(pet)
                 .post(POST_CREATE_PET_URL);
+        response.then().log().all();
+
+        return response;
     }
 
 

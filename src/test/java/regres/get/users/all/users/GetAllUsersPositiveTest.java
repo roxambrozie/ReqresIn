@@ -21,7 +21,7 @@ public class GetAllUsersPositiveTest {
     @Steps
     private GetUserSteps steps;
 
-    ReusableMethods methods = new ReusableMethods();
+    private ReusableMethods methods = new ReusableMethods();
 
     @Test
     @Title("GET a list of users on the Reqres app")
@@ -74,30 +74,30 @@ public class GetAllUsersPositiveTest {
 
     @Test
     @Title("Check the number of users per page is correct")
-    public void usersPerPage(){
-        Response response =steps.getUserList(1);
+    public void usersPerPage() {
+        Response response = steps.getUserList(1);
         steps.usersPerPage(response, 3);
     }
 
     @Test
     @Title("Check the page number")
-    public void checkPageNumber(){
+    public void checkPageNumber() {
         Response response = steps.getUserList(1);
         steps.currentPageNumber(response, 1);
     }
 
     @Test
     @Title("Check the total number of users")
-    public void totalNumberOfUsers(){
+    public void totalNumberOfUsers() {
         Response response = steps.getUserList(3);
         steps.totalUsersNumber(response, 12);
     }
 
     @Test
     @Title("Check the total number of pages with users")
-    public void totalNumberOfPages(){
+    public void totalNumberOfPages() {
         Response response = steps.getUserList(1);
-        steps.totalNumberOfPages(response,4);
+        steps.totalNumberOfPages(response, 4);
     }
 
 }

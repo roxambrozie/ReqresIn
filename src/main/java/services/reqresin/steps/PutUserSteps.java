@@ -1,27 +1,28 @@
 package services.reqresin.steps;
 
-import io.restassured.response.ValidatableResponse;
+import io.restassured.response.Response;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Step;
 import services.reqresin.ReqresService;
-import services.reqresin.pojo.node.User;
+import services.reqresin.pojo.requests.UserJobRequest;
 
 public class PutUserSteps {
 
     private ReqresService reqresService = new ReqresService();
-    private String PUT_USER_URL = reqresService.getBaseUri() + ReqresService.PUT_USER_UPDATE;
+    private String PUT_USER_URL = reqresService.getBaseUri() + ReqresService.POST_USER_URI;
 
-    @Step("Updating a user with {0} name and {1} job.")
-    public ValidatableResponse updateUser(String name, String job, int id) {
-        User user = new User();
-        user.setName(name);
-        user.setJob(job);
+    @Step("When I update a user")
+    public Response updateUser(UserJobRequest user, int id) {
 
-        return SerenityRest.rest().given()
+        Response response = SerenityRest.rest().given().log().all()
+                .baseUri(PUT_USER_URL)
+                .pathParam("id", id)
                 .when()
                 .body(user)
-                .put(PUT_USER_URL + id)
-                .then();
+                .put("/{id}");
+        response.then().log().all();
+
+        return response;
     }
 
 }

@@ -1,4 +1,4 @@
-package services.petshop.pojo.requests;
+package services.petshop.pojo;
 
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
@@ -114,7 +114,8 @@ public class Pet {
     }
 
     public int hashCode() {
-        return (new HashCodeBuilder()).append(this.id).append(this.category).append(this.name).append(this.photoUrls).append(this.tags).append(this.status).append(this.additionalProperties).toHashCode();
+        return (new HashCodeBuilder()).append(this.id).append(this.category).append(this.name).append(this.photoUrls)
+                .append(this.tags).append(this.status).append(this.additionalProperties).toHashCode();
     }
 
     public boolean equals(Object other) {
@@ -124,7 +125,8 @@ public class Pet {
             return false;
         } else {
             Pet rhs = (Pet)other;
-            return (new EqualsBuilder()).append(this.id, rhs.id).append(this.category, rhs.category).append(this.name, rhs.name).append(this.photoUrls, rhs.photoUrls).append(this.tags, rhs.tags).append(this.status, rhs.status).append(this.additionalProperties, rhs.additionalProperties).isEquals();
+            return (new EqualsBuilder()).append(this.id, rhs.id).append(this.category, rhs.category).append(this.name, rhs.name).append(this.photoUrls, rhs.photoUrls).append(this.tags, rhs.tags).append(this.status, rhs.status)
+                    .append(this.additionalProperties, rhs.additionalProperties).isEquals();
         }
     }
 }

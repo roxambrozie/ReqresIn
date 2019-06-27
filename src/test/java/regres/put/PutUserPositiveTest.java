@@ -1,10 +1,14 @@
 package regres.put;
 
+import io.restassured.response.Response;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.*;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import services.reqresin.pojo.requests.UserJobRequest;
 import services.reqresin.steps.PutUserSteps;
+import utils.methods.ReusableMethods;
 
 @RunWith(SerenityRunner.class)
 @WithTags({
@@ -12,22 +16,27 @@ import services.reqresin.steps.PutUserSteps;
 })
 public class PutUserPositiveTest {
 
-    private String name;
-    private String job;
+    private UserJobRequest myUser = new UserJobRequest();
     private int id;
-    private int statusCode = 200;
 
+    @Steps
+    ReusableMethods reusableMethods;
 
     @Steps
     PutUserSteps steps;
 
+    @Before
+    public void createPrereq(){
+        myUser.setName("Emma");
+        myUser.setJob("QA");
+    }
+
     @Title("This is a test that will update a user based on id")
     @Test
     public void putUser() {
-        name = "User1";
-        job = "Job1";
         id = 1;
-        steps.updateUser(name, job, id).statusCode(statusCode);
+        Response response = steps.updateUser(myUser, id);
+        reusableMethods.validateResponseStatusCode(response,200);
     }
 
 }

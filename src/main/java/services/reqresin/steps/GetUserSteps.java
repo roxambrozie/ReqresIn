@@ -1,37 +1,32 @@
 package services.reqresin.steps;
 
 import io.restassured.response.Response;
-import io.restassured.response.ValidatableResponse;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Step;
-import org.apache.tools.ant.taskdefs.Get;
 import services.reqresin.ReqresService;
 import services.reqresin.pojo.node.User;
 import services.reqresin.pojo.responses.GetUsersResponse;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-
 
 public class GetUserSteps {
 
     private ReqresService reqresService = new ReqresService();
-    private String GET_USERS_URL = reqresService.getBaseUri() + ReqresService.GET_LIST_OF_USERS;
-    private String GET_SINGLE_USER = reqresService.getBaseUri() + ReqresService.GET_SINGLE_USER;
+    private String GET_USERS_URL = reqresService.getBaseUri() + ReqresService.GET_USERS_URI;
     private String PAGE_NO_QUERY_PARAM = "page";
 
     @Step("When I retrieve the list of users")
     public Response getUserList(int pageNo) {
         Response response = SerenityRest.rest().given().log().all()
-                .when()
+                .baseUri(GET_USERS_URL)
                 .queryParam(PAGE_NO_QUERY_PARAM, pageNo)
-                .get(GET_USERS_URL);
+                .when()
+                .get();
         response.then().log().all();
 
         return response;
@@ -40,8 +35,10 @@ public class GetUserSteps {
     @Step("When I retrieve a single user from the list based on id")
     public Response getSingleUserFromListWithId(int id) {
         Response response = SerenityRest.rest().given().log().all()
+                .baseUri(GET_USERS_URL)
+                .pathParam("id", id)
                 .when()
-                .get(GET_SINGLE_USER + id);
+                .get("/{id}");
         response.then().log().all();
 
         return response;

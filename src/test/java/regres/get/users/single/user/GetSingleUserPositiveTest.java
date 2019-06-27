@@ -14,26 +14,24 @@ import utils.methods.ReusableMethods;
 
 @RunWith(SerenityRunner.class)
 @WithTags({
-        @WithTag(type= "type", name = "GET")
+        @WithTag(type = "type", name = "GET")
 })
 public class GetSingleUserPositiveTest {
 
     @Steps
     private GetUserSteps steps;
 
-    ReusableMethods methods = new ReusableMethods();
+    private ReusableMethods methods = new ReusableMethods();
 
     @Test
     @WithTags({
-            @WithTag(type= "type", name = "Positive")
+            @WithTag(type = "type", name = "Positive")
     })
     @Title("GET a single user from the list based on id")
     public void getSingleUserFromList() {
         Response response = steps.getSingleUserFromListWithId(1);
         methods.validateResponseStatusCode(response, 200);
     }
-
-
 
 
 }

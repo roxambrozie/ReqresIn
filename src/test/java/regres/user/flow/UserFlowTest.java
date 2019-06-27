@@ -6,23 +6,24 @@ import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.Title;
 import net.thucydides.core.annotations.WithTag;
 import net.thucydides.core.annotations.WithTags;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import services.reqresin.pojo.node.User;
+import services.reqresin.pojo.requests.UserJobRequest;
 import services.reqresin.steps.DeleteUserSteps;
 import services.reqresin.steps.GetUserSteps;
 import services.reqresin.steps.PostUserSteps;
 import services.reqresin.steps.PutUserSteps;
-import utils.reusable.specifications.ReusableSpecifications;
 
 @RunWith(SerenityRunner.class)
 @WithTags({
-        @WithTag(type = "type", name = "FLOW")
+        @WithTag(type = "type", name = "FLOW USER")
 })
 public class UserFlowTest {
 
-    private String name;
-    private String job;
-    private int id;
+    private User myUser = new User();
+    private UserJobRequest myUserJobUpdate = new UserJobRequest();
 
     @Steps
     private PostUserSteps postUserSteps;
@@ -36,19 +37,23 @@ public class UserFlowTest {
     @Steps
     private DeleteUserSteps deleteUserSteps;
 
-    @Title("This test will get a user and update it")
-    @Test
-    public void userEveCreateUpdateDeleteFlow() {
-        name = "Eve";
-        job = "QA";
-        id = 4;
-        postUserSteps.createUser(name, job).statusCode(201)
-                .spec(ReusableSpecifications.getGenericResponseSpec());
-        Response response = getUserSteps.getUserList(2);
-        getUserSteps.checkUserWithFirstNamePresent(response, name);
-        putUserSteps.updateUser(name, job, id).statusCode(200);
-        deleteUserSteps.deleteUserFromListWithId(id);
+    @Before
+    public void createPrereqUser() {
+        myUser.setFirst_name("Emma");
+        myUser.setJob("QA");
+        myUser.setId(3);
+        myUserJobUpdate.setName("Emma");
+        myUserJobUpdate.setJob("QA Automation");
     }
 
+    @Title("This test will create, get and update a user")
+    @Test
+    public void userCreateUpdateDeleteFlow() {
+        postUserSteps.createUser(myUser);
+        Response response = getUserSteps.getUserList(1);
+        getUserSteps.checkUserWithFirstNamePresent(response, myUser.getFirst_name());
+        putUserSteps.updateUser(myUserJobUpdate, myUser.getId());
+        deleteUserSteps.deleteUserFromListWithId(myUser.getId());
+    }
 }
 

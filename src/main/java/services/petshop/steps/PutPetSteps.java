@@ -4,7 +4,7 @@ import io.restassured.response.Response;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Step;
 import services.petshop.PetShopService;
-import services.petshop.pojo.requests.Pet;
+import services.petshop.pojo.Pet;
 import utils.reusable.specifications.ReusableSpecifications;
 
 public class PutPetSteps {

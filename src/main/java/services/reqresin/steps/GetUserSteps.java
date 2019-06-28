@@ -8,6 +8,7 @@ import services.reqresin.pojo.node.User;
 import services.reqresin.pojo.responses.GetUsersResponse;
 
 import java.util.List;
+import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
@@ -19,9 +20,10 @@ public class GetUserSteps {
     private ReqresService reqresService = new ReqresService();
     private String GET_USERS_URL = reqresService.getBaseUri() + ReqresService.GET_USERS_URI;
     private String PAGE_NO_QUERY_PARAM = "page";
+    Logger log = Logger.getLogger(GetUserSteps.class.getName());
 
-    @Step("When I retrieve the list of users")
-    public Response getUserList(int pageNo) {
+    @Step("When I retrieve the list of users by page number {0}")
+    public Response getUserListByPageNo(int pageNo) {
         Response response = SerenityRest.rest().given().log().all()
                 .baseUri(GET_USERS_URL)
                 .queryParam(PAGE_NO_QUERY_PARAM, pageNo)
@@ -84,10 +86,10 @@ public class GetUserSteps {
         List<User> userList = getUsersResponse.getData();
 
         List<User> result1 = userList.stream()
-                .filter(user -> user.getId().equals(id))
                 .filter(user -> user.getEmail().equals(email))
                 .filter(user -> user.getFirst_name().equals(firstName))
                 .filter(user -> user.getLast_name().equals(lastName))
+                .filter(user -> user.getId().equals(id))
                 .filter(user -> user.getAvatar().equals(avatar))
                 .collect(Collectors.toList());
         result1.forEach(System.out::println);

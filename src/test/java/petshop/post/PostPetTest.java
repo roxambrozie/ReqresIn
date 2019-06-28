@@ -4,16 +4,23 @@ import io.restassured.response.Response;
 import net.serenitybdd.junit.runners.SerenityRunner;
 import net.thucydides.core.annotations.Steps;
 import net.thucydides.core.annotations.WithTag;
+import net.thucydides.core.annotations.WithTags;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import services.petshop.pojo.Pet;
+import services.petshop.steps.CommonSteps;
+import services.petshop.steps.DeletePetSteps;
 import services.petshop.steps.PostPetSteps;
 import utils.methods.ReusableMethods;
 
 @RunWith(SerenityRunner.class)
-@WithTag(type = "type", name = "test")
-public class Post {
+@WithTags({
+        @WithTag(type = "service", name = "Pet"),
+        @WithTag(type = "type", name = "Regression")
+})
+public class PostPetTest {
 
     Pet myPet = new Pet();
 
@@ -23,16 +30,26 @@ public class Post {
     @Steps
     ReusableMethods reusableMethods;
 
+    @Steps
+    DeletePetSteps deletePetSteps;
+
+    @Steps
+    CommonSteps commonSteps;
+
     @Before
     public void createPrereq() {
-        myPet.setId(2);
-        myPet.setName("Animalut");
-        myPet.setStatus("available");
+        myPet = commonSteps.createValidPet("Animalut", "available");
     }
 
     @Test
-    public void createPet(){
+    @WithTag(type = "type", name = "Smoke")
+    public void createPet() {
         Response response = postPetSteps.createNewPet(myPet);
         reusableMethods.validateResponseStatusCode(response, 200);
+    }
+
+    @After
+    public void afterMethod() {
+        deletePetSteps.deletePetUsingId(myPet.getId());
     }
 }

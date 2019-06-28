@@ -1,6 +1,5 @@
 package regres.get.users.single.user;
 
-
 import io.restassured.response.Response;
 import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
 import net.thucydides.core.annotations.Steps;
@@ -10,6 +9,7 @@ import net.thucydides.core.annotations.WithTags;
 import net.thucydides.junit.annotations.TestData;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import services.reqresin.pojo.node.User;
 import services.reqresin.steps.GetUserSteps;
 import utils.methods.ReusableMethods;
 
@@ -18,7 +18,8 @@ import java.util.Collection;
 
 @RunWith(SerenityParameterizedRunner.class)
 @WithTags({
-        @WithTag(type = "type", name = "GET")
+        @WithTag(type = "service", name = "Regres"),
+        @WithTag(type = "type", name = "Regression")
 })
 public class GetSingleUserPositiveDataDrivenTest {
 
@@ -34,6 +35,7 @@ public class GetSingleUserPositiveDataDrivenTest {
     }
 
     private final int id;
+    private User myUser = new User();
 
     public GetSingleUserPositiveDataDrivenTest(int id) {
         this.id = id;
@@ -44,14 +46,10 @@ public class GetSingleUserPositiveDataDrivenTest {
     private ReusableMethods methods = new ReusableMethods();
 
     @Test
-    @WithTags({
-            @WithTag(type = "type", name = "Positive")
-    })
     @Title("GET a single user from the list based on id - positive test with data")
     public void getSingleUserFromList() {
         Response response = steps.getSingleUserFromListWithId(id);
         methods.validateResponseStatusCode(response, 200);
     }
-
 
 }

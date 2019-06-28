@@ -13,8 +13,8 @@ import utils.methods.ReusableMethods;
 
 @RunWith(SerenityRunner.class)
 @WithTags({
-        @WithTag(type = "type", name = "GET"),
-        @WithTag(type = "type", name = "Positive")
+        @WithTag(type = "service", name = "Regres"),
+        @WithTag(type = "type", name = "Regression")
 })
 public class GetAllResourcesPositiveTest {
     ReusableMethods methods = new ReusableMethods();
@@ -29,9 +29,7 @@ public class GetAllResourcesPositiveTest {
     private GetResourceSteps steps;
 
     @Test
-    @WithTags({
-            @WithTag(type = "type", name = "Positive")
-    })
+    @WithTag(type = "type", name = "Smoke")
     @Title("GET a list of resources on the Reqres app")
     public void getResourceList() {
         Response response = steps.getResourceList();
@@ -39,7 +37,8 @@ public class GetAllResourcesPositiveTest {
     }
 
     @Test
-    @Title("Check a resource  exists in the list by name")
+    @WithTag(type = "jira", name = "MX-001")
+    @Title("Check a resource  exists in the list by name | MX-001")
     public void isResourceWithNameInList() {
         name = "true red";
         Response response = steps.getResourceList();
@@ -47,7 +46,8 @@ public class GetAllResourcesPositiveTest {
     }
 
     @Test
-    @Title("Check a resource  exists in the list by name")
+    @WithTag(type = "jira", name = "MX-002")
+    @Title("Check a resource  exists in the list by name | MX-002")
     public void isResourceWithNameInList1() {
         name = "fuchsia rose";
         Response response = steps.getResourceList();

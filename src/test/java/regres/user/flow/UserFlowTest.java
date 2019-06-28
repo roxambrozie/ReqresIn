@@ -18,7 +18,8 @@ import services.reqresin.steps.PutUserSteps;
 
 @RunWith(SerenityRunner.class)
 @WithTags({
-        @WithTag(type = "type", name = "FLOW USER")
+        @WithTag(type = "service", name = "Regres"),
+        @WithTag(type = "type", name = "Regression")
 })
 public class UserFlowTest {
 
@@ -47,10 +48,11 @@ public class UserFlowTest {
     }
 
     @Title("This test will create, get and update a user")
+    @WithTag(type = "type", name = "E2E")
     @Test
     public void userCreateUpdateDeleteFlow() {
         postUserSteps.createUser(myUser);
-        Response response = getUserSteps.getUserList(1);
+        Response response = getUserSteps.getUserListByPageNo(1);
         getUserSteps.checkUserWithFirstNamePresent(response, myUser.getFirst_name());
         putUserSteps.updateUser(myUserJobUpdate, myUser.getId());
         deleteUserSteps.deleteUserFromListWithId(myUser.getId());

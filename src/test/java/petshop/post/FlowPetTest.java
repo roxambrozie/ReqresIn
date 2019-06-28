@@ -8,12 +8,13 @@ import org.junit.runner.RunWith;
 import services.petshop.pojo.Pet;
 import services.petshop.steps.*;
 import io.restassured.response.Response;
-import services.petshop.utils.pet.constants.PetConstants;
+import services.petshop.PetConstants;
 import utils.methods.ReusableMethods;
 
 @RunWith(SerenityRunner.class)
 @WithTags({
-        @WithTag(type = "type", name = "FLOW PET")
+        @WithTag(type = "service", name = "Pet"),
+        @WithTag(type = "type", name = "Regression")
 })
 public class FlowPetTest {
 
@@ -40,25 +41,24 @@ public class FlowPetTest {
 
     @Before
     public void createPrereq() {
-        myPet.setId(2);
-        myPet.setName("Animalut");
-        myPet.setStatus("available");
+        myPet = commonSteps.createValidPet("Animalut", "available");
         myUpdatedPet.setId(myPet.getId());
         myUpdatedPet.setName(myPet.getName());
         myUpdatedPet.setStatus("sold");
     }
 
     @Title("This is a test that will create a new pet, then will retrieve, update and delete it")
+    @WithTag(type = "type", name = "E2E")
     @Test
     public void createGetUpdateDeletePet() {
         Response createdPetResponse = postPetSteps.createNewPet(myPet);
         reusableMethods.validateResponseStatusCode(createdPetResponse, 200);
         Pet createdPet = commonSteps.convertResponseToPet(createdPetResponse);
         Pet retrievedPet = commonSteps.convertResponseToPet(getPetSteps.getPetUsingId(createdPet.getId()));
-        commonSteps.verifyPetEqual(retrievedPet, myPet);
+        commonSteps.verifyPetEquals(retrievedPet, myPet);
         Response updatedPetResponse = putPetSteps.updatePet(myUpdatedPet);
         Pet updatedPet = commonSteps.convertResponseToPet(updatedPetResponse);
-        commonSteps.verifyPetEqual(updatedPet, myUpdatedPet);
+        commonSteps.verifyPetEquals(updatedPet, myUpdatedPet);
         Response responseForPetDeleted = deletePetSteps.deletePetUsingId(updatedPet.getId());
         reusableMethods.validateResponseStatusCode(responseForPetDeleted, 200);
         Response responseGetDeletedPet = getPetSteps.getPetUsingId(updatedPet.getId());

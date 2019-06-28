@@ -8,9 +8,9 @@ import services.reqresin.ReqresService;
 public class DeleteUserSteps {
 
     ReqresService reqresService = new ReqresService();
-    private String DELETE_USER_URL = reqresService.getBaseUri() + ReqresService.POST_USER_URI;
+    private String DELETE_USER_URL = reqresService.getBaseUri() + ReqresService.GET_USERS_URI;
 
-    @Step("When I delete a single user from the list based on id")
+    @Step("When I delete a single user from the list based on id {0}")
     public Response deleteUserFromListWithId(int id) {
         Response response = SerenityRest.rest().given().log().all()
                 .baseUri(DELETE_USER_URL)

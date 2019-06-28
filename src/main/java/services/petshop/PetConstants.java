@@ -1,4 +1,4 @@
-package services.petshop.utils.pet.constants;
+package services.petshop;
 
 public class PetConstants {
 

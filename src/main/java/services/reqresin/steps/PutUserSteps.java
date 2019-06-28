@@ -9,7 +9,7 @@ import services.reqresin.pojo.requests.UserJobRequest;
 public class PutUserSteps {
 
     private ReqresService reqresService = new ReqresService();
-    private String PUT_USER_URL = reqresService.getBaseUri() + ReqresService.POST_USER_URI;
+    private String PUT_USER_URL = reqresService.getBaseUri() + ReqresService.GET_USERS_URI;
 
     @Step("When I update a user")
     public Response updateUser(UserJobRequest user, int id) {

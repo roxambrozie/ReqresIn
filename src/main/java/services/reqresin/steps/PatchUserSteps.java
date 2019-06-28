@@ -9,16 +9,13 @@ import services.reqresin.pojo.requests.UserJobRequest;
 public class PatchUserSteps {
 
     private ReqresService reqresService = new ReqresService();
-    private String PUT_USER_URL = reqresService.getBaseUri() + ReqresService.POST_USER_URI;
+    private String PATCH_USER_URL = reqresService.getBaseUri() + ReqresService.GET_USERS_URI;
 
-    @Step("When I create a new user")
-    public Response patchUser(String job, int id) {
-
-        UserJobRequest user = new UserJobRequest();
-        user.setJob(job);
+    @Step("When I update an attribute of the user")
+    public Response patchUser(UserJobRequest user, int id) {
 
         Response response = SerenityRest.rest().given().log().all()
-                .baseUri(PUT_USER_URL)
+                .baseUri(PATCH_USER_URL)
                 .pathParam("id", id)
                 .when()
                 .body(user)

@@ -15,7 +15,7 @@ import org.apache.commons.lang.builder.ToStringBuilder;
 
 @JsonInclude(Include.NON_NULL)
 @JsonPropertyOrder({"code", "type", "message"})
-public class GetPetNotFoundResponse {
+public class ErrorResponse {
     @JsonProperty("code")
     private Integer code;
     @JsonProperty("type")
@@ -25,7 +25,7 @@ public class GetPetNotFoundResponse {
     @JsonIgnore
     private Map<String, Object> additionalProperties = new HashMap();
 
-    public GetPetNotFoundResponse() {
+    public ErrorResponse() {
     }
 
     @JsonProperty("code")
@@ -79,10 +79,10 @@ public class GetPetNotFoundResponse {
     public boolean equals(Object other) {
         if (other == this) {
             return true;
-        } else if (!(other instanceof GetPetNotFoundResponse)) {
+        } else if (!(other instanceof ErrorResponse)) {
             return false;
         } else {
-            GetPetNotFoundResponse rhs = (GetPetNotFoundResponse)other;
+            ErrorResponse rhs = (ErrorResponse)other;
             return (new EqualsBuilder()).append(this.code, rhs.code).append(this.type, rhs.type).append(this.message, rhs.message).append(this.additionalProperties, rhs.additionalProperties).isEquals();
         }
     }

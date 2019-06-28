@@ -16,7 +16,8 @@ import utils.methods.ReusableMethods;
 @RunWith(SerenityParameterizedRunner.class)
 @UseTestDataFrom("testdata\\userinfo.csv")
 @WithTags({
-        @WithTag(type = "type", name = "POST")
+        @WithTag(type = "service", name = "Regres"),
+        @WithTag(type = "type", name = "Regression")
 })
 public class PostNewUserDataDrivenTest {
 

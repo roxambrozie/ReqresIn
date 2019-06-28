@@ -9,18 +9,18 @@ import net.thucydides.core.annotations.WithTags;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import services.reqresin.pojo.node.User;
 import services.reqresin.pojo.requests.UserJobRequest;
 import services.reqresin.steps.PatchUserSteps;
 import utils.methods.ReusableMethods;
 
 @RunWith(SerenityRunner.class)
 @WithTags({
-        @WithTag(type = "type", name = "PATCH")
+        @WithTag(type = "service", name = "Regres"),
+        @WithTag(type = "type", name = "Regression")
 })
 public class PatchUserPositiveTest {
 
-    private String job;
+    private UserJobRequest myUser = new UserJobRequest();
     private int id;
 
     @Steps
@@ -29,15 +29,18 @@ public class PatchUserPositiveTest {
     @Steps
     private ReusableMethods reusableMethods;
 
+    @Before
+    public void createPrereq() {
+        myUser.setName("Emma");
+        myUser.setJob("QA Automation");
+    }
+
     @Test
     @Title("This is a test that will patch a user based on id")
-    @WithTags({
-            @WithTag(type = "type", name = "Positive")
-    })
+    @WithTag(type = "type", name = "Smoke")
     public void patchUser() {
-        job = "Job1";
-        id = 2;
-        Response response = steps.patchUser(job, id);
+        id = 1;
+        Response response = steps.patchUser(myUser, id);
         reusableMethods.validateResponseStatusCode(response, 200);
     }
 }

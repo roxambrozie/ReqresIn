@@ -12,7 +12,8 @@ import utils.methods.ReusableMethods;
 
 @RunWith(SerenityRunner.class)
 @WithTags({
-        @WithTag(type = "type", name = "PUT")
+        @WithTag(type = "service", name = "Regres"),
+        @WithTag(type = "type", name = "Regression")
 })
 public class PutUserPositiveTest {
 
@@ -32,6 +33,7 @@ public class PutUserPositiveTest {
     }
 
     @Title("This is a test that will update a user based on id")
+    @WithTag(type = "type", name = "Smoke")
     @Test
     public void putUser() {
         id = 1;

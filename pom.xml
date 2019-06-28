@@ -9,14 +9,13 @@
     <version>1.0-SNAPSHOT</version>
 
     <properties>
-        <serenity.version>1.5.8</serenity.version>
+        <serenity.version>2.0.55</serenity.version>
         <serenity.maven.version>1.5.8</serenity.maven.version>
         <junit.version>4.12</junit.version>
         <slf4j.version>1.6.1</slf4j.version>
         <maven.failsafe.plugin.version>2.18</maven.failsafe.plugin.version>
         <maven.compiler.plugin.version>3.2</maven.compiler.plugin.version>
         <java.version>1.8</java.version>
-        <serenity.cucumber.version>1.1.6</serenity.cucumber.version>
     </properties>
 
     <dependencies>
@@ -46,13 +45,6 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-
-        <dependency>
-            <groupId>net.serenity-bdd</groupId>
-            <artifactId>serenity-cucumber</artifactId>
-            <version>1.1.6</version>
-        </dependency>
-
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
@@ -64,13 +56,6 @@
             <version>2.8.0</version>
         </dependency>
 
-        <!-- https://mvnrepository.com/artifact/com.tngtech.java/junit-dataprovider -->
-        <dependency>
-            <groupId>com.tngtech.java</groupId>
-            <artifactId>junit-dataprovider</artifactId>
-            <version>1.13.0</version>
-            <scope>test</scope>
-        </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
@@ -129,21 +114,21 @@
                 </executions>
             </plugin>
             <!--<plugin>-->
-                <!--<groupId>org.jsonschema2pojo</groupId>-->
-                <!--<artifactId>jsonschema2pojo-maven-plugin</artifactId>-->
-                <!--<version>0.4.37</version>-->
-                <!--<configuration>-->
-                    <!--<sourceType>json</sourceType>-->
-                    <!--<sourceDirectory>${basedir}/src/main/resources/schemas/${schemaName}</sourceDirectory>-->
-                    <!--<targetPackage>com.mypojo</targetPackage>-->
-                <!--</configuration>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<goals>-->
-                            <!--<goal>generate</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
+            <!--<groupId>org.jsonschema2pojo</groupId>-->
+            <!--<artifactId>jsonschema2pojo-maven-plugin</artifactId>-->
+            <!--<version>0.4.37</version>-->
+            <!--<configuration>-->
+            <!--<sourceType>json</sourceType>-->
+            <!--<sourceDirectory>${basedir}/src/main/resources/schemas/${schemaName}</sourceDirectory>-->
+            <!--<targetPackage>com.mypojo</targetPackage>-->
+            <!--</configuration>-->
+            <!--<executions>-->
+            <!--<execution>-->
+            <!--<goals>-->
+            <!--<goal>generate</goal>-->
+            <!--</goals>-->
+            <!--</execution>-->
+            <!--</executions>-->
             <!--</plugin>-->
         </plugins>
     </build>

@@ -16,7 +16,6 @@ public class TestConstants {
 
     //environment
     public static final String ENVIRONMENT = PropertiesUtil.getString(properties, "environment");
- //   public static final String JUNIT_TAGS = getJunitTagsParam();
 
     public static final String REQRESIN_URI = PropertiesUtil.getString(properties, "regres.baseURI");
     public static final String PETSTORE_URI = PropertiesUtil.getString(properties, "petstore.baseURI");

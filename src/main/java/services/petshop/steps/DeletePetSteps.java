@@ -5,22 +5,20 @@ import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Step;
 import services.petshop.PetShopService;
 
-public class GetPetSteps {
+public class DeletePetSteps {
 
     PetShopService petShopService = new PetShopService();
-    private String GET_PET_URL = petShopService.getBaseUri() + PetShopService.PET_URI;
+    private String DELETE_PET_URL = petShopService.getBaseUri() + PetShopService.PET_URI;
 
-    @Step("When I retrieve a single pet based on id {0}")
-    public Response getPetUsingId(int id) {
+    @Step("When I delete a single pet based on id {0}")
+    public Response deletePetUsingId(int id) {
         Response response = SerenityRest.rest().given().log().all()
-                .baseUri(GET_PET_URL)
+                .baseUri(DELETE_PET_URL)
                 .pathParam("id", id)
                 .when()
-                .get("/{id}");
+                .delete("/{id}");
         response.then().log().all();
 
         return response;
     }
-
-
 }

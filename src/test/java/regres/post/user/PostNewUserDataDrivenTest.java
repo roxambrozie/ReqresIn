@@ -1,22 +1,23 @@
 package regres.post.user;
 
+import io.restassured.response.Response;
 import net.serenitybdd.junit.runners.SerenityParameterizedRunner;
-import net.thucydides.core.annotations.Steps;
-import net.thucydides.core.annotations.Title;
-import net.thucydides.core.annotations.WithTag;
-import net.thucydides.core.annotations.WithTags;
+import net.thucydides.core.annotations.*;
 import net.thucydides.junit.annotations.Concurrent;
 import net.thucydides.junit.annotations.UseTestDataFrom;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import services.reqresin.pojo.node.User;
 import services.reqresin.steps.PostUserSteps;
-import utils.reusable.specifications.ReusableSpecifications;
+import utils.methods.ReusableMethods;
 
 @Concurrent(threads = "2x")
 @RunWith(SerenityParameterizedRunner.class)
 @UseTestDataFrom("testdata\\userinfo.csv")
 @WithTags({
-        @WithTag(type = "type", name = "POST")
+        @WithTag(type = "service", name = "Regres"),
+        @WithTag(type = "type", name = "Regression")
 })
 public class PostNewUserDataDrivenTest {
 
@@ -39,14 +40,24 @@ public class PostNewUserDataDrivenTest {
         this.job = job;
     }
 
+    private User myUser = new User();
+
     @Steps
-    PostUserSteps steps;
+    private PostUserSteps postUserSteps;
+
+    @Steps
+    private ReusableMethods reusableMethodsSteps;
+
+    @Before
+    public void createPrereqUser(){
+        myUser.setName(name);
+        myUser.setJob(job);
+    }
 
     @Title("This is a data driven test that will create multiple new users")
     @Test
     public void createMultipleUsers() {
-        steps.createUser(name, job).statusCode(201)
-                .spec(ReusableSpecifications.getGenericResponseSpec());
+       Response createMultipleUsersResponse = postUserSteps.createUser(myUser);
+       reusableMethodsSteps.validateResponseStatusCode(createMultipleUsersResponse, 201);
     }
-
 }

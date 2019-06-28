@@ -6,8 +6,7 @@ public class PetShopService {
 
     public String baseUri;
 
-    public static final String POST_PET = "/pet";
-    public static final String GET_PET = "/pet/";
+    public static final String PET_URI = "/pet";
 
     public PetShopService() {
         this.baseUri = TestConstants.SECURE_PROTOCOL + "://" + TestConstants.PETSTORE_URI;

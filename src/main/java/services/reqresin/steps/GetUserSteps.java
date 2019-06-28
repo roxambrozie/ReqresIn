@@ -1,37 +1,32 @@
 package services.reqresin.steps;
 
 import io.restassured.response.Response;
-import io.restassured.response.ValidatableResponse;
 import net.serenitybdd.rest.SerenityRest;
 import net.thucydides.core.annotations.Step;
-import org.apache.tools.ant.taskdefs.Get;
 import services.reqresin.ReqresService;
 import services.reqresin.pojo.node.User;
 import services.reqresin.pojo.responses.GetUsersResponse;
 
-import javax.validation.Valid;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-
 
 public class GetUserSteps {
 
     private ReqresService reqresService = new ReqresService();
-    private String GET_USERS_URL = reqresService.getBaseUri() + ReqresService.GET_LIST_OF_USERS;
-    private String GET_SINGLE_USER = reqresService.getBaseUri() + ReqresService.GET_SINGLE_USER;
+    private String GET_USERS_URL = reqresService.getBaseUri() + ReqresService.USERS_URI;
     private String PAGE_NO_QUERY_PARAM = "page";
 
-    @Step("When I retrieve the list of users")
-    public Response getUserList(int pageNo) {
+    @Step("When I retrieve the list of users by page number {0}")
+    public Response getUserListByPageNo(int pageNo) {
         Response response = SerenityRest.rest().given().log().all()
-                .when()
+                .baseUri(GET_USERS_URL)
                 .queryParam(PAGE_NO_QUERY_PARAM, pageNo)
-                .get(GET_USERS_URL);
+                .when()
+                .get();
         response.then().log().all();
 
         return response;
@@ -40,8 +35,10 @@ public class GetUserSteps {
     @Step("When I retrieve a single user from the list based on id")
     public Response getSingleUserFromListWithId(int id) {
         Response response = SerenityRest.rest().given().log().all()
+                .baseUri(GET_USERS_URL)
+                .pathParam("id", id)
                 .when()
-                .get(GET_SINGLE_USER + id);
+                .get("/{id}");
         response.then().log().all();
 
         return response;
@@ -53,9 +50,7 @@ public class GetUserSteps {
         List<User> userList = getUsersResponse.getData();
 
         List<User> result = userList.stream().filter(user -> user.getFirst_name().equals(firstName)).collect(Collectors.toList());
-        result.forEach(System.out::println);
         assertThat(result, hasSize(1));
-        //response.then().body("data[0].first_name", is(firstName));
     }
 
     @Step("Then I check the user with the last name {1} exists")
@@ -64,7 +59,6 @@ public class GetUserSteps {
         List<User> userList = getUsersResponse.getData();
 
         List<User> result = userList.stream().filter(user -> user.getLast_name().equals(lastName)).collect(Collectors.toList());
-        result.forEach(System.out::println);
         assertThat(result, hasSize(1));
     }
 
@@ -77,7 +71,6 @@ public class GetUserSteps {
                 .filter(user -> user.getFirst_name().equals(firstName))
                 .filter(user -> user.getLast_name().equals(lastName))
                 .collect(Collectors.toList());
-        result1.forEach(System.out::println);
         assertThat(result1, hasSize(1));
     }
 
@@ -87,13 +80,12 @@ public class GetUserSteps {
         List<User> userList = getUsersResponse.getData();
 
         List<User> result1 = userList.stream()
-                .filter(user -> user.getId().equals(id))
                 .filter(user -> user.getEmail().equals(email))
                 .filter(user -> user.getFirst_name().equals(firstName))
                 .filter(user -> user.getLast_name().equals(lastName))
+                .filter(user -> user.getId().equals(id))
                 .filter(user -> user.getAvatar().equals(avatar))
                 .collect(Collectors.toList());
-        result1.forEach(System.out::println);
         assertThat(result1, hasSize(1));
     }
 
@@ -103,7 +95,6 @@ public class GetUserSteps {
         List<User> userList = getUsersResponse.getData();
 
         List<User> result = userList.stream().filter(user -> user.getEmail().equals(email)).collect(Collectors.toList());
-        result.forEach(System.out::println);
         assertThat(result, hasSize(1));
     }
 
@@ -113,7 +104,6 @@ public class GetUserSteps {
         List<User> userList = getUsersResponse.getData();
 
         List<User> result = userList.stream().filter(user -> user.getAvatar().equals(avatar)).collect(Collectors.toList());
-        result.forEach(System.out::println);
         assertThat(result, hasSize(1));
     }
 
@@ -121,7 +111,6 @@ public class GetUserSteps {
     public void currentPageNumber(Response response, int currentPageNumber) {
         GetUsersResponse getUsersResponse = response.as(GetUsersResponse.class);
         int currentPageNo = getUsersResponse.getPage();
-        System.out.println(currentPageNo);
         assertThat(currentPageNo, equalTo(currentPageNumber));
     }
 
@@ -129,7 +118,6 @@ public class GetUserSteps {
     public void usersPerPage(Response response, int noOfUsers) {
         GetUsersResponse getUsersResponse = response.as(GetUsersResponse.class);
         int usersPerPage = getUsersResponse.getPer_page();
-        System.out.println(usersPerPage);
         assertThat(usersPerPage, equalTo(noOfUsers));
     }
 
@@ -137,7 +125,6 @@ public class GetUserSteps {
     public void totalUsersNumber(Response response, int totalNumberOfUsers) {
         GetUsersResponse getUsersResponse = response.as(GetUsersResponse.class);
         int totalNoOfUsers = getUsersResponse.getTotal();
-        System.out.println(totalNoOfUsers);
         assertThat(totalNoOfUsers, equalTo(totalNumberOfUsers));
     }
 
@@ -145,7 +132,6 @@ public class GetUserSteps {
     public void totalNumberOfPages(Response response, int totalNumberOfPages) {
         GetUsersResponse getUsersResponse = response.as(GetUsersResponse.class);
         int totalNoOfPages = getUsersResponse.getTotal_pages();
-        System.out.println(totalNoOfPages);
         assertThat(totalNoOfPages, equalTo(totalNumberOfPages));
     }
 }

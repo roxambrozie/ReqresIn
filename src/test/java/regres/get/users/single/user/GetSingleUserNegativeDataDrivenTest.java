@@ -17,12 +17,14 @@ import java.util.Collection;
 
 @RunWith(SerenityParameterizedRunner.class)
 @WithTags({
-        @WithTag(type= "type", name = "GET")
+        @WithTag(type = "service", name = "Regres"),
+        @WithTag(type = "type", name = "Regression"),
+        @WithTag(type = "type", name = "Negative")
 })
 public class GetSingleUserNegativeDataDrivenTest {
 
     @TestData
-    public static Collection<Object[]> data(){
+    public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {100},
                 {19029},
@@ -38,12 +40,9 @@ public class GetSingleUserNegativeDataDrivenTest {
 
     @Steps
     private GetUserSteps steps;
-    ReusableMethods methods = new ReusableMethods();
+    private ReusableMethods methods = new ReusableMethods();
 
     @Test
-    @WithTags({
-            @WithTag(type= "type", name = "Negative")
-    })
     @Title("GET a single user from the list - negative test with data")
     public void getSingleUserNegative() {
         Response response = steps.getSingleUserFromListWithId(id);

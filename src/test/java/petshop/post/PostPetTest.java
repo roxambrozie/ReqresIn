@@ -38,7 +38,7 @@ public class PostPetTest {
 
     @Before
     public void createPrereq() {
-        myPet = commonSteps.createValidPet("Animalut", "available");
+        myPet = commonSteps.createValidPetObject("Animalut", "available");
     }
 
     @Test

@@ -2,18 +2,14 @@ package services.petshop.steps;
 
 import io.restassured.response.Response;
 import net.thucydides.core.annotations.Step;
-import net.thucydides.core.annotations.Steps;
 import org.junit.Assert;
 import services.petshop.pojo.Pet;
 import services.petshop.pojo.responses.ErrorResponse;
 import utils.methods.ReusableMethods;
 
-
 public class CommonSteps {
 
     ReusableMethods reusableMethods = new ReusableMethods();
-    @Steps
-    PostPetSteps postPetSteps;
 
     @Step("Then I assert the pet that has been retrieved is the same pet that has been created")
     public void verifyPetEquals(Pet petCreated, Pet mypet) {
@@ -43,15 +39,13 @@ public class CommonSteps {
         Assert.assertEquals(status, pet.getStatus());
     }
 
-    public Pet createValidPet(String name, String status) {
+    public Pet createValidPetObject(String name, String status) {
         int id = reusableMethods.generateRandomInt(10, 100);
         Pet myPet = new Pet();
         myPet.setId(id);
-        myPet.setName("doggie");
-        myPet.setStatus("sold");
-        postPetSteps.createNewPet(myPet);
+        myPet.setName(name);
+        myPet.setStatus(status);
 
         return myPet;
     }
-
 }

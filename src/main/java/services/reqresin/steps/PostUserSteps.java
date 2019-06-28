@@ -10,7 +10,7 @@ import utils.reusable.specifications.ReusableSpecifications;
 public class PostUserSteps {
 
     private ReqresService reqresService = new ReqresService();
-    private String POST_CREATE_USER_URL = reqresService.getBaseUri() + ReqresService.GET_USERS_URI;
+    private String POST_CREATE_USER_URL = reqresService.getBaseUri() + ReqresService.USERS_URI;
 
     @Step("When I create a new user")
     public Response createUser(User user) {

@@ -5,8 +5,8 @@ import utils.constants.TestConstants;
 public class ReqresService {
 
     public String baseUri;
-    public static final String GET_USERS_URI = "/api/users";
-    public static final String GET_RESOURCES_URI = "/api/unknown";
+    public static final String USERS_URI = "/api/users";
+    public static final String RESOURCES_URI = "/api/unknown";
 
     public ReqresService() {
         this.baseUri = TestConstants.SECURE_PROTOCOL + "://" + TestConstants.REQRESIN_URI;

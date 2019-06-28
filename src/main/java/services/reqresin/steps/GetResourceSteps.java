@@ -17,7 +17,7 @@ import static org.hamcrest.Matchers.hasSize;
 public class GetResourceSteps {
 
     private ReqresService reqresService = new ReqresService();
-    private String GET_RESOURCES_URL = reqresService.getBaseUri() + ReqresService.GET_RESOURCES_URI;
+    private String GET_RESOURCES_URL = reqresService.getBaseUri() + ReqresService.RESOURCES_URI;
     private final Logger logger = Logger.getLogger(getClass().getCanonicalName());
 
     @Step("When I retrieve the list of resources")
@@ -51,7 +51,6 @@ public class GetResourceSteps {
         for (Resource r : result) {
             logger.info(r.getName());
         }
-        //result.forEach(Resource r  logger.info(r.getName()));
         assertThat(result, hasSize(1));
     }
 

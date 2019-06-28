@@ -41,7 +41,7 @@ public class FlowPetTest {
 
     @Before
     public void createPrereq() {
-        myPet = commonSteps.createValidPet("Animalut", "available");
+        myPet = commonSteps.createValidPetObject("Animalut", "available");
         myUpdatedPet.setId(myPet.getId());
         myUpdatedPet.setName(myPet.getName());
         myUpdatedPet.setStatus("sold");

@@ -13,6 +13,7 @@ import services.petshop.pojo.Pet;
 import services.petshop.steps.CommonSteps;
 import services.petshop.steps.DeletePetSteps;
 import services.petshop.steps.GetPetSteps;
+import services.petshop.steps.PostPetSteps;
 
 @RunWith(SerenityRunner.class)
 @WithTags({@WithTag(type = "service", name = "Pet"),
@@ -30,9 +31,13 @@ public class PetVerifyParametersTest {
     @Steps
     DeletePetSteps deletePetSteps;
 
+    @Steps
+    PostPetSteps postPetSteps;
+
     @Before
     public void createPrereq() {
-        myPet = commonSteps.createValidPet("Dog", "sold");
+        myPet = commonSteps.createValidPetObject("Dog", "sold");
+        postPetSteps.createNewPet(myPet);
     }
 
     @Title("This test will verify if the pet name is as expected")

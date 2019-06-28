@@ -13,7 +13,8 @@ import utils.methods.ReusableMethods;
 
 @RunWith(SerenityRunner.class)
 @WithTags({
-        @WithTag(type = "type", name = "FLOW PET")
+        @WithTag(type = "service", name = "Pet"),
+        @WithTag(type = "type", name = "Regression")
 })
 public class FlowPetTest {
 
@@ -49,6 +50,7 @@ public class FlowPetTest {
     }
 
     @Title("This is a test that will create a new pet, then will retrieve, update and delete it")
+    @WithTag(type = "type", name = "E2E")
     @Test
     public void createGetUpdateDeletePet() {
         Response createdPetResponse = postPetSteps.createNewPet(myPet);

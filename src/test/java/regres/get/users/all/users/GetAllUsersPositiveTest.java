@@ -13,8 +13,8 @@ import utils.methods.ReusableMethods;
 
 @RunWith(SerenityRunner.class)
 @WithTags({
-        @WithTag(type = "type", name = "GET"),
-        @WithTag(type = "type", name = "Positive")
+        @WithTag(type = "service", name = "Regres"),
+        @WithTag(type = "type", name = "Regression")
 })
 public class GetAllUsersPositiveTest {
 
@@ -24,6 +24,7 @@ public class GetAllUsersPositiveTest {
     private ReusableMethods methods = new ReusableMethods();
 
     @Test
+    @WithTag(type = "type", name = "Smoke")
     @Title("GET a list of users on the Reqres app")
     public void getUserList() {
         Response response = steps.getUserList(1);

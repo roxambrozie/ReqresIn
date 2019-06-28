@@ -14,7 +14,10 @@ import services.petshop.steps.GetPetSteps;
 import services.petshop.steps.PostPetSteps;
 
 @RunWith(SerenityRunner.class)
-@WithTags({@WithTag(type = "type", name = "Verify Pet Parameters")})
+@WithTags({
+        @WithTag(type = "service", name = "Pet"),
+        @WithTag(type = "type", name = "Regression")
+})
 public class PetVerifyParametersTest {
 
     private Pet myPet = new Pet();
@@ -43,6 +46,7 @@ public class PetVerifyParametersTest {
     }
 
     @Title("This test will verify if the pet name is as expected")
+    @WithTag(type = "type", name = "Smoke")
     @Test
     public void verifyPetName() {
         commonSteps.verifyPetName(getPetSteps.getPetUsingId(id), name);

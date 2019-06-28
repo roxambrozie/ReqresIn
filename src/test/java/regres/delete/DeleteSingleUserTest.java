@@ -13,7 +13,8 @@ import utils.methods.ReusableMethods;
 
 @RunWith(SerenityRunner.class)
 @WithTags({
-        @WithTag(type = "type", name = "DELETE")
+        @WithTag(type = "service", name = "Regres"),
+        @WithTag(type = "type", name = "Regression")
 })
 public class DeleteSingleUserTest {
 
@@ -23,9 +24,7 @@ public class DeleteSingleUserTest {
     ReusableMethods methods = new ReusableMethods();
 
     @Test
-    @WithTags({
-            @WithTag(type = "type", name = "Positive")
-    })
+    @WithTag(type = "type", name = "Smoke")
     @Title("DELETE a single user from the list based on id")
     public void deleteSingleUserFromListPositiveTest() {
         Response response = steps.deleteUserFromListWithId(1);

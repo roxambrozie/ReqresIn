@@ -13,7 +13,8 @@ import utils.methods.ReusableMethods;
 
 @RunWith(SerenityRunner.class)
 @WithTags({
-        @WithTag(type= "type", name = "GET")
+        @WithTag(type = "service", name = "Regres"),
+        @WithTag(type = "type", name = "Regression")
 })
 public class GetSingleResourcePositiveTest {
    private ReusableMethods methods = new ReusableMethods();
@@ -22,9 +23,7 @@ public class GetSingleResourcePositiveTest {
     private GetResourceSteps steps;
 
     @Test
-    @WithTags({
-            @WithTag(type= "type", name = "Positive")
-    })
+    @WithTag(type = "type", name = "Smoke")
     @Title("GET a single resource from the list based on id")
     public void getSingleResourceFromList() {
         Response response = steps.getResourceFromListWithId(1);

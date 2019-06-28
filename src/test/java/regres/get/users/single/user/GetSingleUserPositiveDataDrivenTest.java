@@ -18,7 +18,8 @@ import java.util.Collection;
 
 @RunWith(SerenityParameterizedRunner.class)
 @WithTags({
-        @WithTag(type = "type", name = "GET")
+        @WithTag(type = "service", name = "Regres"),
+        @WithTag(type = "type", name = "Regression")
 })
 public class GetSingleUserPositiveDataDrivenTest {
 
@@ -44,9 +45,6 @@ public class GetSingleUserPositiveDataDrivenTest {
     private ReusableMethods methods = new ReusableMethods();
 
     @Test
-    @WithTags({
-            @WithTag(type = "type", name = "Positive")
-    })
     @Title("GET a single user from the list based on id - positive test with data")
     public void getSingleUserFromList() {
         Response response = steps.getSingleUserFromListWithId(id);
